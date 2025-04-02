@@ -54,9 +54,7 @@ Structural patterns deal with object composition and relationships, ensuring tha
 
 - **Flyweight**: Reduces memory usage by sharing as much data as possible with similar objects.
 
-- **Composite**: Composes objects into tree structures to represent part-whole hierarchies.
-
-- **Etc.**: Other structural patterns that solve specific composition problems.
+- **Composite**: Composes objects into tree structures to represent part-whole hierarchies. It lets clients treat individual objects and compositions of objects uniformly.
 
 ### 3. Behavioral Patterns
 Behavioral patterns focus on communication between objects and how responsibilities are distributed.
