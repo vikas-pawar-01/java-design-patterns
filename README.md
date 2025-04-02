@@ -44,6 +44,8 @@ Structural patterns deal with object composition and relationships, ensuring tha
 
 - **Adapter (Class vs Object)**: Converts the interface of a class into another interface clients expect.
 
+- **Bridge**: Decouples an abstraction from its implementation so that the two can vary independently.
+
 - **Façade**: Provides a simplified interface to a larger body of code.
 
 - **Proxy**: Provides a placeholder or surrogate to control access to an object.
