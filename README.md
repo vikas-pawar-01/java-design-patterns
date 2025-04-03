@@ -744,7 +744,100 @@ Behavioral patterns focus on communication between objects and how responsibilit
 
 - **Chain of Responsibility**: Passes a request along a chain of handlers until it is handled.
 
+```
+Client
+   |
+   v
+LoggerChain
+   |
+   +--> InfoLogger
+   |       |
+   |       +--> If level matches, process message
+   |       +--> Else, pass to DebugLogger
+   |
+   +--> DebugLogger
+   |       |
+   |       +--> If level matches, process message
+   |       +--> Else, pass to ErrorLogger
+   |
+   +--> ErrorLogger
+           |
+           +--> If level matches, process message
+           +--> Else, end of chain
+```
+
+        +-------------------------+
+        |        Logger           |  <--- Abstract Handler
+        +-------------------------+
+        | - level: int            |
+        | - nextLogger: Logger    |
+        +-------------------------+
+        | + setNextLogger(Logger): void |
+        | + logMessage(level: int, message: String): void |
+        | + write(message: String): void (abstract)      |
+        +-------------------------+
+               ^
+               |
+    +-------------------------+          +-------------------------+          +-------------------------+
+    |       InfoLogger        |          |      DebugLogger        |          |      ErrorLogger        |
+    +-------------------------+          +-------------------------+          +-------------------------+
+    | + write(message: String): void |   | + write(message: String): void |   | + write(message: String): void |
+    +-------------------------+          +-------------------------+          +-------------------------+
+
 - **Command**: Encapsulates a request as an object, allowing parameterization and queuing of requests.
+
+
+```
+Client
+   |
+   v
+RemoteControl (Invoker)
+   |
+   +--> Command (Interface)
+           |
+           +--> LightOnCommand (Concrete Command)
+           |       |
+           |       +--> Light (Receiver)
+           |
+           +--> FanOnCommand (Concrete Command)
+                   |
+                   +--> Fan (Receiver)
+```
+
+        +-------------------------+
+        |       Command           |  <--- Command Interface
+        +-------------------------+
+        | + execute(): void       |
+        | + undo(): void          |
+        +-------------------------+
+               ^
+               |
+    +-------------------------+          +-------------------------+
+    |   LightOnCommand        |          |   FanOnCommand          |
+    +-------------------------+          +-------------------------+
+    | - light: Light          |          | - fan: Fan              |
+    | + execute(): void       |          | + execute(): void       |
+    | + undo(): void          |          | + undo(): void          |
+    +-------------------------+          +-------------------------+
+               ^
+               |
+        +-------------------------+
+        |       RemoteControl     |  <--- Invoker
+        +-------------------------+
+        | - command: Command      |
+        | + setCommand(Command): void |
+        | + pressButton(): void   |
+        | + pressUndo(): void     |
+        +-------------------------+
+               ^
+               |
+    +-------------------------+
+    |       Light             |  <--- Receiver
+    +-------------------------+
+    | + turnOn(): void        |
+    | + turnOff(): void       |
+    +-------------------------+
+
 
 - **State**: Allows an object to alter its behavior when its internal state changes.
 

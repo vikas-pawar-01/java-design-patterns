@@ -5,6 +5,8 @@ import com.designpattern.solid.isp.InterfaceSegregationDemo;
 import com.designpattern.solid.lsp.LiskovSubstitutionDemo;
 import com.designpattern.solid.ocp.OpenClosedDemo;
 import com.designpattern.solid.srp.SingleResponsibilityDemo;
+import com.designpattern.patterns.behavioral.chainofresponsibility.ChainOfResponsibilityDemo;
+import com.designpattern.patterns.behavioral.command.CommandPatternDemo;
 import com.designpattern.patterns.creational.abstractfactory.AbstractFactoryPatternDemo;
 import com.designpattern.patterns.creational.builder.BuilderPatternDemo;
 import com.designpattern.patterns.creational.factory.FactoryPatternDemo;
@@ -106,5 +108,15 @@ public class App {
     System.out
         .println("Flyweight Pattern: Reduces memory usage by sharing as much data as possible with similar objects.");
     FlyweightPatternDemo.run();
+
+    System.out.println("||--------------------------------------------------||");
+    System.out
+        .println("Chain of Responsibility Pattern: Passes a request along a chain of handlers until it is handled.");
+    ChainOfResponsibilityDemo.run();
+
+    System.out.println("||--------------------------------------------------||");
+    System.out.println(
+        "Command Pattern: Encapsulates a request as an object, allowing parameterization and undo functionality.");
+    CommandPatternDemo.run();
   }
 }
