@@ -13,6 +13,9 @@ import com.designpattern.patterns.creational.singleton.SingletonPatternDemo;
 import com.designpattern.patterns.structural.adapter.AdapterPatternDemo;
 import com.designpattern.patterns.structural.bridge.BridgePatternDemo;
 import com.designpattern.patterns.structural.composite.CompositePatternDemo;
+import com.designpattern.patterns.structural.decorator.DecoratorPatternDemo;
+import com.designpattern.patterns.structural.facade.FacadePatternDemo;
+import com.designpattern.patterns.structural.proxy.ProxyPatternDemo;
 
 public class App {
   public static void main(String[] args) {
@@ -82,5 +85,20 @@ public class App {
     System.out.println(
         "Composite Pattern: Compose objects into tree structures to represent part-whole hierarchies. Composite lets clients treat individual objects and compositions of objects uniformly.");
     CompositePatternDemo.run();
+
+    System.out.println("||--------------------------------------------------||");
+    System.out.println(
+        "Decorator Pattern: Dynamically add additional responsibilities to an object at runtime.");
+    DecoratorPatternDemo.run();
+
+    System.out.println("||--------------------------------------------------||");
+    System.out.println(
+        "Proxy Pattern: Provide a surrogate or placeholder for another object to control access to it.");
+    ProxyPatternDemo.run();
+
+    System.out.println("||--------------------------------------------------||");
+    System.out.println(
+        "Facade Pattern: Provide a simplified interface to a larger body of code.");
+    FacadePatternDemo.run();
   }
 }
