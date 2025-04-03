@@ -72,6 +72,17 @@ ShapeCalculator
            |
            +--> Rectangle.calculateArea()
 ```
+----
+Client
+   |
+   v
+ShapeCalculator
+   |
+   +--> calculateTotalArea(List<Shape>)
+           |
+           +--> Circle.calculateArea()
+           |
+           +--> Rectangle.calculateArea()
 
         +-------------------------+
         |       Shape             |  <--- Abstract Class (Open for Extension)
