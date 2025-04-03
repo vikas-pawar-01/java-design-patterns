@@ -15,6 +15,7 @@ import com.designpattern.patterns.structural.bridge.BridgePatternDemo;
 import com.designpattern.patterns.structural.composite.CompositePatternDemo;
 import com.designpattern.patterns.structural.decorator.DecoratorPatternDemo;
 import com.designpattern.patterns.structural.facade.FacadePatternDemo;
+import com.designpattern.patterns.structural.flyweight.FlyweightPatternDemo;
 import com.designpattern.patterns.structural.proxy.ProxyPatternDemo;
 
 public class App {
@@ -100,5 +101,10 @@ public class App {
     System.out.println(
         "Facade Pattern: Provide a simplified interface to a larger body of code.");
     FacadePatternDemo.run();
+
+    System.out.println("||--------------------------------------------------||");
+    System.out
+        .println("Flyweight Pattern: Reduces memory usage by sharing as much data as possible with similar objects.");
+    FlyweightPatternDemo.run();
   }
 }

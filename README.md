@@ -72,17 +72,6 @@ ShapeCalculator
            |
            +--> Rectangle.calculateArea()
 ```
-----
-Client
-   |
-   v
-ShapeCalculator
-   |
-   +--> calculateTotalArea(List<Shape>)
-           |
-           +--> Circle.calculateArea()
-           |
-           +--> Rectangle.calculateArea()
 
         +-------------------------+
         |       Shape             |  <--- Abstract Class (Open for Extension)
@@ -108,7 +97,7 @@ ShapeCalculator
 
    - **L**: Liskov Substitution Principle (LSP): Subtypes must be substitutable for their base types.
 
-
+```
 Client
    |
    v
@@ -121,6 +110,7 @@ Bird (Base Class)
    +--> Penguin (Derived Class)
            |
            +--> fly() throws exception or provides alternative behavior
+```
 
         +-------------------------+
         |       Bird              |  <--- Base Class
@@ -138,7 +128,7 @@ Bird (Base Class)
 
    - **I**: Interface Segregation Principle (ISP): Clients should not be forced to depend on interfaces they do not use.
 
-
+```
 Client
    |
    v
@@ -152,7 +142,7 @@ Worker Interface
    +--> RobotWorker
            |
            +--> work()
-
+```
 
         +-------------------------+
         |       Worker            |  <--- Segregated Interface
@@ -181,7 +171,7 @@ Worker Interface
 
    - **D**: Dependency Inversion Principle (DIP): High-level modules should not depend on low-level modules; both should depend on abstractions.
 
-
+```
 Client
    |
    v
@@ -192,7 +182,7 @@ NotificationManager
            +--> EmailService (Concrete Implementation)
            |
            +--> SMSService (Concrete Implementation)
-
+```
 
         +-------------------------+
         |       Notification      |  <--- High-Level Module (Abstraction)
@@ -225,7 +215,7 @@ Creational patterns deal with object creation mechanisms, trying to create objec
 
 - **Singleton**: Ensures a class has only one instance and provides a global point of access to it.
 
-
+```
 Client
    |
    v
@@ -237,7 +227,7 @@ Singleton.getInstance()
    |   Create new Singleton instance
    |
    +--> Return the Singleton instance
-
+```
 
         +--------------------+
         |    Singleton       |  <--- Singleton Class
@@ -251,6 +241,7 @@ Singleton.getInstance()
 
 - **Factory Pattern**: Provides an interface for creating objects without specifying their concrete classes.
 
+```
 Client
    |
    v
@@ -262,7 +253,7 @@ Factory (Creator)
                    |
                    v
                Product (Interface)
-
+```
 
         +--------------------+
         |    Product         |  <--- Interface
@@ -286,7 +277,7 @@ Factory (Creator)
 
 - **Abstract Factory**: Creates families of related objects without specifying their concrete classes.
 
-
+```
 Client
    |
    v
@@ -301,7 +292,7 @@ FactoryProvider
            |
            +--> Red
            +--> Blue
-
+```
 
         +--------------------+
         | AbstractFactory    |  <--- Abstract Factory
@@ -346,6 +337,7 @@ FactoryProvider
 
 - **Prototype**: Creates new objects by copying existing ones, improving performance.
 
+```
 Client
    |
    v
@@ -358,7 +350,7 @@ Prototype (Interface)
    +--> ConcretePrototype2
            |
            +--> clone() creates a copy of ConcretePrototype2
-
+```
 
         +--------------------+
         |   Prototype        |  <--- Interface
@@ -378,6 +370,7 @@ Prototype (Interface)
 
 - **Builder**: Constructs complex objects step by step, separating construction from representation.
 
+```
 Client
    |
    v
@@ -391,6 +384,7 @@ HouseDirector
                            |
                            v
                         House (Product)
+```
 
         +--------------------+
         |      House         |  <--- Product
@@ -434,6 +428,7 @@ Structural patterns deal with object composition and relationships, ensuring tha
 
 - **Adapter (Class vs Object)**: Converts the interface of a class into another interface clients expect.
 
+```
 Client (AudioPlayer)
    |
    v
@@ -452,6 +447,7 @@ MediaPlayer (Target Interface)
            +--> AdvancedMediaPlayer (Adaptee Interface)
                    |
                    +--> VlcPlayer or Mp4Player (Concrete Adaptees)
+```
 
         +--------------------+
         |    MediaPlayer     |  <--- Target Interface
@@ -488,7 +484,7 @@ MediaPlayer (Target Interface)
 
 - **Bridge**: Decouples an abstraction from its implementation so that the two can vary independently.
 
-
+```
 Client
    |
    v
@@ -505,7 +501,7 @@ Shape (Abstraction)
            +--> Color (Implementor)
                    |
                    +--> Blue (Concrete Implementor)
-
+```
 
         +----------------+
         |    Shape       |  <--- Abstraction
@@ -539,6 +535,7 @@ Shape (Abstraction)
 
 - **Façade**: Provides a simplified interface to a larger body of code.
 
+```
 Client
    |
    v
@@ -557,6 +554,7 @@ HomeTheaterFacade
    +--> DVDPlayer.on()
            |
            +--> DVDPlayer.play("Inception")
+```
 
         +-----------------------+
         |   HomeTheaterFacade   |  <--- Facade
@@ -582,6 +580,7 @@ HomeTheaterFacade
 
 - **Proxy**: Provides a placeholder or surrogate to control access to an object.
 
+```
  Client
    |
    v
@@ -593,7 +592,7 @@ ProxyImage (image1)
    |   RealImage (Load image from disk)
    |
    +--> Call display() on RealImage
-
+```
 
      +----------------+
         |    Image       |  <--- Interface
@@ -613,6 +612,7 @@ ProxyImage (image1)
 
 - **Decorator**: Dynamically adds behavior or responsibilities to an object.
 
+```
 Client
    |
    v
@@ -626,7 +626,7 @@ SugarDecorator (adds sugar behavior)
    |
    v
 Final Decorated Coffee (description and cost updated)
-
+```
 
         +----------------+
         |    Coffee      |  <--- Interface
@@ -655,8 +655,53 @@ Final Decorated Coffee (description and cost updated)
 
 - **Flyweight**: Reduces memory usage by sharing as much data as possible with similar objects.
 
+```
+Client
+   |
+   v
+CharacterFactory
+   |
+   +--> Check if Character exists in Map
+   |       |
+   |       +--> If exists, return existing Character
+   |       |
+   |       +--> If not, create new ConcreteCharacter and store in Map
+   |
+   v
+ConcreteCharacter
+   |
+   +--> Display Character with extrinsic state (x, y)
+```
+
+        +-------------------------+
+        |      Character          |  <--- Flyweight Interface
+        +-------------------------+
+        | + display(x: int, y: int): void |
+        +-------------------------+
+               ^
+               |
+    +-------------------------+
+    |   ConcreteCharacter     |  <--- Concrete Flyweight
+    +-------------------------+
+    | - symbol: char          |  // Intrinsic state
+    | - font: String          |  // Intrinsic state
+    +-------------------------+
+    | + display(x: int, y: int): void |
+    +-------------------------+
+               ^
+               |
+        +-------------------------+
+        |   CharacterFactory      |  <--- Flyweight Factory
+        +-------------------------+
+        | - characters: Map       |
+        +-------------------------+
+        | + getCharacter(symbol: char, font: String): Character |
+        +-------------------------+
+
+
 - **Composite**: Composes objects into tree structures to represent part-whole hierarchies. It lets clients treat individual objects and compositions of objects uniformly.
 
+```
 Client
    |
    v
@@ -669,6 +714,7 @@ Manager (General Manager)
    |       +--> Designer (Charlie)
    |
    +--> Developer (Independent Consultant)
+```
 
         +----------------+
         |   Employee     |  <--- Interface
