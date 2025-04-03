@@ -60,7 +60,7 @@ Client
 
    - **O**: Open/Closed Principle (OCP): Software entities should be open for extension but closed for modification.
 
-
+```
 Client
    |
    v
@@ -71,7 +71,7 @@ ShapeCalculator
            +--> Circle.calculateArea()
            |
            +--> Rectangle.calculateArea()
-
+```
 
         +-------------------------+
         |       Shape             |  <--- Abstract Class (Open for Extension)
@@ -110,7 +110,6 @@ Bird (Base Class)
    +--> Penguin (Derived Class)
            |
            +--> fly() throws exception or provides alternative behavior
-
 
         +-------------------------+
         |       Bird              |  <--- Base Class
