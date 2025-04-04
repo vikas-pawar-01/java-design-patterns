@@ -742,6 +742,49 @@ Behavioral patterns focus on communication between objects and how responsibilit
 
 - **Strategy**: Defines a family of algorithms and makes them interchangeable.
 
+
+```
+Client
+   |
+   v
+PaymentContext (Context)
+   |
+   +--> setPaymentStrategy(strategy)
+   |
+   +--> pay(amount)
+           |
+           +--> CreditCardPayment.pay(amount)
+           |
+           +--> PayPalPayment.pay(amount)
+           |
+           +--> GooglePayPayment.pay(amount)
+```
+
+        +-------------------------+
+        |    PaymentStrategy      |  <--- Strategy Interface
+        +-------------------------+
+        | + pay(amount: double): void |
+        +-------------------------+
+               ^
+               |
+    +-------------------------+          +-------------------------+          +-------------------------+
+    |   CreditCardPayment     |          |     PayPalPayment       |          |   GooglePayPayment      |
+    +-------------------------+          +-------------------------+          +-------------------------+
+    | - cardNumber: String    |          | - email: String         |          | - phoneNumber: String   |
+    +-------------------------+          +-------------------------+          +-------------------------+
+    | + pay(amount: double): void |      | + pay(amount: double): void |      | + pay(amount: double): void |
+    +-------------------------+          +-------------------------+          +-------------------------+
+               ^
+               |
+        +-------------------------+
+        |     PaymentContext      |  <--- Context
+        +-------------------------+
+        | - paymentStrategy: PaymentStrategy |
+        +-------------------------+
+        | + setPaymentStrategy(strategy: PaymentStrategy): void |
+        | + pay(amount: double): void                          |
+        +-------------------------+
+
 - **Chain of Responsibility**: Passes a request along a chain of handlers until it is handled.
 
 ```
@@ -841,9 +884,144 @@ RemoteControl (Invoker)
 
 - **State**: Allows an object to alter its behavior when its internal state changes.
 
+
+```
+Client
+   |
+   v
+TrafficLightContext (Context)
+   |
+   +--> currentState.handleState(context)
+           |
+           +--> RedState.handleState(context)
+           |       |
+           |       +--> Transition to GreenState
+           |
+           +--> GreenState.handleState(context)
+           |       |
+           |       +--> Transition to YellowState
+           |
+           +--> YellowState.handleState(context)
+                   |
+                   +--> Transition to RedState
+```
+
+
+        +-------------------------+
+        |   TrafficLightState     |  <--- State Interface
+        +-------------------------+
+        | + handleState(context: TrafficLightContext): void |
+        +-------------------------+
+               ^
+               |
+    +-------------------------+          +-------------------------+          +-------------------------+
+    |       RedState          |          |      GreenState         |          |      YellowState        |
+    +-------------------------+          +-------------------------+          +-------------------------+
+    | + handleState(context): void |     | + handleState(context): void |     | + handleState(context): void |
+    +-------------------------+          +-------------------------+          +-------------------------+
+               ^
+               |
+        +-------------------------+
+        |   TrafficLightContext   |  <--- Context
+        +-------------------------+
+        | - currentState: TrafficLightState |
+        +-------------------------+
+        | + setState(state: TrafficLightState): void |
+        | + changeState(): void                     |
+        +-------------------------+
+
+
 - **Observer**: Defines a one-to-many dependency between objects so that when one object changes state, all its dependents are notified.
 
+
+```
+Client
+   |
+   v
+NewsAgency (Subject)
+   |
+   +--> addObserver(Observer)
+   |
+   +--> setLatestNews(news)
+           |
+           +--> notifyObservers()
+                   |
+                   +--> EmailSubscriber.update(news)
+                   +--> MobileSubscriber.update(news)
+```
+
+        +-------------------------+
+        |       Subject           |  <--- Subject Interface
+        +-------------------------+
+        | + addObserver(o: Observer): void |
+        | + removeObserver(o: Observer): void |
+        | + notifyObservers(): void         |
+        +-------------------------+
+               ^
+               |
+        +-------------------------+
+        |      NewsAgency         |  <--- Concrete Subject
+        +-------------------------+
+        | - observers: List<Observer>      |
+        | - latestNews: String             |
+        +-------------------------+
+        | + addObserver(o: Observer): void |
+        | + removeObserver(o: Observer): void |
+        | + notifyObservers(): void         |
+        | + setLatestNews(news: String): void |
+        +-------------------------+
+               ^
+               |
+        +-------------------------+
+        |       Observer          |  <--- Observer Interface
+        +-------------------------+
+        | + update(news: String): void    |
+        +-------------------------+
+               ^
+               |
+    +-------------------------+          +-------------------------+
+    |    EmailSubscriber      |          |    MobileSubscriber     |
+    +-------------------------+          +-------------------------+
+    | - name: String          |          | - name: String          |
+    +-------------------------+          +-------------------------+
+    | + update(news: String): void |     | + update(news: String): void |
+    +-------------------------+          +-------------------------+
+
+
 - **Template**: Defines the skeleton of an algorithm, deferring some steps to subclasses.
+
+```
+Client
+   |
+   v
+DataProcessor (Abstract Class)
+   |
+   +--> process() (Template Method)
+           |
+           +--> readData() (Abstract Method - implemented by subclasses)
+           |
+           +--> processData() (Abstract Method - implemented by subclasses)
+           |
+           +--> saveData() (Concrete Method - common to all subclasses)
+```
+
+        +-------------------------+
+        |     DataProcessor       |  <--- Abstract Class
+        +-------------------------+
+        | + process(): void       |  // Template Method
+        | + readData(): void      |  // Abstract Method
+        | + processData(): void   |  // Abstract Method
+        | + saveData(): void      |  // Concrete Method
+        +-------------------------+
+               ^
+               |
+    +-------------------------+          +-------------------------+
+    |   CSVDataProcessor      |          |   JSONDataProcessor     |
+    +-------------------------+          +-------------------------+
+    | + readData(): void      |          | + readData(): void      |
+    | + processData(): void   |          | + processData(): void   |
+    +-------------------------+          +-------------------------+
+
 
 - **Interpreter**: Defines a representation for a language's grammar and provides an interpreter to evaluate sentences in the language. It is commonly used for parsing and interpreting expressions.
 
