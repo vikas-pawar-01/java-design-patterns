@@ -15,6 +15,7 @@ import com.designpattern.patterns.behavioral.observer.ObserverPatternDemo;
 import com.designpattern.patterns.behavioral.state.StatePatternDemo;
 import com.designpattern.patterns.behavioral.strategy.StrategyPatternDemo;
 import com.designpattern.patterns.behavioral.template.TemplatePatternDemo;
+import com.designpattern.patterns.behavioral.visitor.VisitorPatternDemo;
 import com.designpattern.patterns.creational.abstractfactory.AbstractFactoryPatternDemo;
 import com.designpattern.patterns.creational.builder.BuilderPatternDemo;
 import com.designpattern.patterns.creational.factory.FactoryPatternDemo;
@@ -27,6 +28,10 @@ import com.designpattern.patterns.structural.decorator.DecoratorPatternDemo;
 import com.designpattern.patterns.structural.facade.FacadePatternDemo;
 import com.designpattern.patterns.structural.flyweight.FlyweightPatternDemo;
 import com.designpattern.patterns.structural.proxy.ProxyPatternDemo;
+
+import com.designpattern.architecture.mvvm.MVVMPatternDemo;
+import com.designpattern.architecture.layered.LayeredArchitectureDemo;
+import com.designpattern.architecture.microservices.MicroservicesArchitectureDemo;
 
 public class App {
   public static void main(String[] args) {
@@ -159,5 +164,20 @@ public class App {
     System.out.println("Template Pattern: Defines the skeleton of an algorithm, deferring some steps to subclasses.");
     TemplatePatternDemo.run();
 
+    System.out.println("||--------------------------------------------------||");
+    System.out.println("Visitor Pattern: Allows adding new operations to objects without modifying their structure.");
+    VisitorPatternDemo.run();
+
+    System.out.println("||--------------------------------------------------||");
+    System.out.println("MVVM Pattern: Separates UI logic from business logic using ViewModel.");
+    MVVMPatternDemo.run();
+
+    System.out.println("||--------------------------------------------------||");
+    System.out.println("Layered Architecture Pattern: Organizes an application into layers with specific responsibilities.");
+    LayeredArchitectureDemo.run();
+
+    System.out.println("||--------------------------------------------------||");
+    System.out.println("Microservices Architecture: Structures an application as a collection of small, autonomous services.");
+    MicroservicesArchitectureDemo.run();
   }
 }
