@@ -1234,6 +1234,55 @@ Caretaker
         | + redo(): Memento         |
         +-------------------------+
 
+- **Visitor**: Allows you to add new operations to a group of objects without modifying their structure. It achieves this by separating the operation logic into a separate object called the Visitor.
+
+```
+Client
+   |
+   v
+FileElement (Element Interface)
+   |
+   +--> accept(Visitor)
+           |
+           +--> Visitor.visit(Element)
+                   |
+                   +--> CompressionVisitor.visit(Element)
+                   +--> VirusScanVisitor.visit(Element)
+```
+
+        +-------------------------+
+        |        Visitor          |  <--- Visitor Interface
+        +-------------------------+
+        | + visit(TextFile): void |
+        | + visit(ImageFile): void|
+        | + visit(VideoFile): void|
+        +-------------------------+
+               ^
+               |
+    +-------------------------+          +-------------------------+
+    |  CompressionVisitor     |          |    VirusScanVisitor     |
+    +-------------------------+          +-------------------------+
+    | + visit(TextFile): void |          | + visit(TextFile): void |
+    | + visit(ImageFile): void|          | + visit(ImageFile): void|
+    | + visit(VideoFile): void|          | + visit(VideoFile): void|
+    +-------------------------+          +-------------------------+
+
+        +-------------------------+
+        |      FileElement        |  <--- Element Interface
+        +-------------------------+
+        | + accept(Visitor): void |
+        +-------------------------+
+               ^
+               |
+    +-------------------------+          +-------------------------+          +-------------------------+
+    |       TextFile          |          |       ImageFile         |          |       VideoFile         |
+    +-------------------------+          +-------------------------+          +-------------------------+
+    | - name: String          |          | - name: String          |          | - name: String          |
+    +-------------------------+          +-------------------------+          +-------------------------+
+    | + accept(Visitor): void |          | + accept(Visitor): void |          | + accept(Visitor): void |
+    | + getName(): String     |          | + getName(): String     |          | + getName(): String     |
+    +-------------------------+          +-------------------------+          +-------------------------+
+
 
 ---
 
@@ -1242,8 +1291,195 @@ Architecture patterns provide solutions to common high-level software design pro
 
 - **MVVM (Model-View-ViewModel)**: Separates the development of the graphical user interface from the business logic or back-end logic.
 
+```
+Client
+   |
+   v
+LoginView (View)
+   |
+   +--> setUser(username, password) -> LoginViewModel (ViewModel)
+   |
+   +--> validateUser() -> LoginViewModel (ViewModel)
+           |
+           +--> isValid() -> UserModel (Model)
+```
+
+        +-------------------------+
+        |       UserModel         |  <--- Model
+        +-------------------------+
+        | - username: String      |
+        | - password: String      |
+        +-------------------------+
+        | + isValid(): boolean    |
+        | + getUsername(): String |
+        | + getPassword(): String |
+        +-------------------------+
+               ^
+               |
+        +-------------------------+
+        |     LoginViewModel      |  <--- ViewModel
+        +-------------------------+
+        | - userModel: UserModel  |
+        +-------------------------+
+        | + setUser(username, password): void |
+        | + validateUser(): String            |
+        +-------------------------+
+               ^
+               |
+        +-------------------------+
+        |       LoginView         |  <--- View
+        +-------------------------+
+        | - viewModel: LoginViewModel |
+        +-------------------------+
+        | + display(): void       |
+        +-------------------------+
+
+- **Layered/n-tier Architecture**:  Organizes an application into layers, where each layer has a specific responsibility. This pattern promotes separation of concerns, making the application easier to maintain and scale.
+
+```
+Client
+   |
+   v
+ProductController (Presentation Layer)
+   |
+   +--> getProductById(productId) -> ProductService (Service Layer)
+           |
+           +--> findById(productId) -> ProductRepository (Data Access Layer)
+                   |
+                   +--> Retrieve product from database
+```
+
+        +-------------------------+
+        |   ProductController     |  <--- Presentation Layer
+        +-------------------------+
+        | - productService: ProductService |
+        +-------------------------+
+        | + displayProductDetails(productId: int): void |
+        +-------------------------+
+               |
+               v
+        +-------------------------+
+        |     ProductService      |  <--- Service Layer
+        +-------------------------+
+        | - productRepository: ProductRepository |
+        +-------------------------+
+        | + getProductById(productId: int): Product |
+        +-------------------------+
+               |
+               v
+        +-------------------------+
+        |    ProductRepository    |  <--- Data Access Layer
+        +-------------------------+
+        | - productDatabase: Map<Integer, Product> |
+        +-------------------------+
+        | + findById(productId: int): Product      |
+        +-------------------------+
+               |
+               v
+        +-------------------------+
+        |        Product          |  <--- Model
+        +-------------------------+
+        | - id: int               |
+        | - name: String          |
+        | - price: double         |
+        +-------------------------+
+        | + getId(): int          |
+        | + getName(): String     |
+        | + getPrice(): double    |
+        +-------------------------+
+
+
 - **WPF (Windows Presentation Foundation)**: A UI framework for building desktop client applications in Windows.
 
 - **Microservices**: An architectural style that structures an application as a collection of small, autonomous services.
 
+```
+Client
+   |
+   v
+OrderService (Microservice)
+   |
+   +--> getProductById(productId) -> ProductService (Microservice)
+   |
+   +--> processPayment(orderDetails, amount) -> PaymentService (Microservice)
+   |
+   +--> sendNotification(message) -> NotificationService (Microservice)
+```
+
+        +-------------------------+
+        |     ProductService      |  <--- Microservice
+        +-------------------------+
+        | + getProductById(id): String |
+        +-------------------------+
+               ^
+               |
+        +-------------------------+
+        |      OrderService       |  <--- Microservice
+        +-------------------------+
+        | - productService: ProductService |
+        +-------------------------+
+        | + placeOrder(id, qty): void      |
+        +-------------------------+
+               ^
+               |
+        +-------------------------+
+        |     PaymentService      |  <--- Microservice
+        +-------------------------+
+        | + processPayment(order, amount): void |
+        +-------------------------+
+               ^
+               |
+        +-------------------------+
+        |  NotificationService    |  <--- Microservice
+        +-------------------------+
+        | + sendNotification(msg): void      |
+        +-------------------------+
+
+
 - **MVC (Model-View-Controller)**: Separates an application into three interconnected components to separate internal representations of information from the ways information is presented and accepted.
+
+```
+Client
+   |
+   v
+StudentController (Controller)
+   |
+   +--> Updates the Student (Model)
+   |
+   +--> Refreshes the StudentView (View)
+           |
+           +--> Displays updated details
+```
+
+        +-------------------------+
+        |       Student           |  <--- Model
+        +-------------------------+
+        | - name: String          |
+        | - rollNo: int           |
+        +-------------------------+
+        | + getName(): String     |
+        | + setName(name: String): void |
+        | + getRollNo(): int      |
+        | + setRollNo(rollNo: int): void |
+        +-------------------------+
+               ^
+               |
+        +-------------------------+
+        |    StudentController    |  <--- Controller
+        +-------------------------+
+        | - model: Student        |
+        | - view: StudentView     |
+        +-------------------------+
+        | + setStudentName(name: String): void |
+        | + getStudentName(): String           |
+        | + setStudentRollNo(rollNo: int): void|
+        | + getStudentRollNo(): int            |
+        | + updateView(): void                 |
+        +-------------------------+
+               ^
+               |
+        +-------------------------+
+        |      StudentView        |  <--- View
+        +-------------------------+
+        | + printStudentDetails(name: String, rollNo: int): void |
+        +-------------------------+
