@@ -7,6 +7,10 @@ import com.designpattern.solid.ocp.OpenClosedDemo;
 import com.designpattern.solid.srp.SingleResponsibilityDemo;
 import com.designpattern.patterns.behavioral.chainofresponsibility.ChainOfResponsibilityDemo;
 import com.designpattern.patterns.behavioral.command.CommandPatternDemo;
+import com.designpattern.patterns.behavioral.interpreter.InterpreterPatternDemo;
+import com.designpattern.patterns.behavioral.iterator.IteratorPatternDemo;
+import com.designpattern.patterns.behavioral.mediator.MediatorPatternDemo;
+import com.designpattern.patterns.behavioral.memento.MementoPatternDemo;
 import com.designpattern.patterns.creational.abstractfactory.AbstractFactoryPatternDemo;
 import com.designpattern.patterns.creational.builder.BuilderPatternDemo;
 import com.designpattern.patterns.creational.factory.FactoryPatternDemo;
@@ -118,5 +122,22 @@ public class App {
     System.out.println(
         "Command Pattern: Encapsulates a request as an object, allowing parameterization and undo functionality.");
     CommandPatternDemo.run();
+
+    System.out.println("||--------------------------------------------------||");
+    System.out.println("Interpreter Pattern: Parses and evaluates expressions.");
+    InterpreterPatternDemo.run();
+
+    System.out.println("||--------------------------------------------------||");
+    System.out.println("Iterator Pattern: Provides a way to access elements of a collection sequentially.");
+    IteratorPatternDemo.run();
+
+    System.out.println("||--------------------------------------------------||");
+    System.out.println("Mediator Pattern: Defines an object to encapsulate how a set of objects interact.");
+    MediatorPatternDemo.run();
+
+    System.out.println("||--------------------------------------------------||");
+    System.out.println("Memento Pattern: Allows an object to save and restore its state.");
+    MementoPatternDemo.run();
+
   }
 }

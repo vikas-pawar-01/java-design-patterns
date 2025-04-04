@@ -845,6 +845,218 @@ RemoteControl (Invoker)
 
 - **Template**: Defines the skeleton of an algorithm, deferring some steps to subclasses.
 
+- **Interpreter**: Defines a representation for a language's grammar and provides an interpreter to evaluate sentences in the language. It is commonly used for parsing and interpreting expressions.
+
+```
+Client
+   |
+   v
+Expression (Interface)
+   |
+   +--> NumberExpression (Terminal Expression)
+   |
+   +--> AddExpression (Non-Terminal Expression)
+   |       |
+   |       +--> NumberExpression (Left Operand)
+   |       +--> NumberExpression (Right Operand)
+   |
+   +--> SubtractExpression (Non-Terminal Expression)
+           |
+           +--> AddExpression (Left Operand)
+           +--> NumberExpression (Right Operand)
+```
+
+
+        +-------------------------+
+        |      Expression         |  <--- Abstract Expression
+        +-------------------------+
+        | + interpret(): int      |
+        +-------------------------+
+               ^
+               |
+    +-------------------------+          +-------------------------+
+    |   NumberExpression      |          |   AddExpression         |
+    +-------------------------+          +-------------------------+
+    | - number: int           |          | - leftExpression: Expression |
+    | + interpret(): int      |          | - rightExpression: Expression|
+    +-------------------------+          | + interpret(): int      |
+                                         +-------------------------+
+                                                   ^
+                                                   |
+                                         +-------------------------+
+                                         |   SubtractExpression    |
+                                         +-------------------------+
+                                         | - leftExpression: Expression |
+                                         | - rightExpression: Expression|
+                                         | + interpret(): int      |
+                                         +-------------------------+
+
+- **Iterator**: Provides a way to access the elements of a collection sequentially without exposing its underlying representation.
+
+```
+Client
+   |
+   v
+BookCollection (Concrete Collection)
+   |
+   +--> createIterator()
+           |
+           v
+BookIterator (Concrete Iterator)
+   |
+   +--> hasNext() -> Checks if there are more elements
+   |
+   +--> next() -> Returns the next element
+```
+
+
+        +-------------------------+
+        |       Iterator<T>       |  <--- Iterator Interface
+        +-------------------------+
+        | + hasNext(): boolean    |
+        | + next(): T             |
+        +-------------------------+
+               ^
+               |
+    +-------------------------+
+    |     BookIterator        |  <--- Concrete Iterator
+    +-------------------------+
+    | - books: List<Book>     |
+    | - position: int         |
+    +-------------------------+
+    | + hasNext(): boolean    |
+    | + next(): Book          |
+    +-------------------------+
+
+        +-------------------------+
+        | IterableCollection<T>   |  <--- Aggregate Interface
+        +-------------------------+
+        | + createIterator():     |
+        |       Iterator<T>       |
+        +-------------------------+
+               ^
+               |
+    +-------------------------+
+    |     BookCollection      |  <--- Concrete Collection
+    +-------------------------+
+    | - books: List<Book>     |
+    +-------------------------+
+    | + addBook(book: Book): void |
+    | + createIterator(): Iterator<Book> |
+    +-------------------------+
+
+        +-------------------------+
+        |         Book            |  <--- Element
+        +-------------------------+
+        | - title: String         |
+        | - author: String        |
+        +-------------------------+
+        | + toString(): String    |
+        +-------------------------+
+
+- **Mediator**: Defines an object (the mediator) to encapsulate how a set of objects interact. This pattern promotes loose coupling by preventing objects from referring to each other explicitly and allows their interaction to be managed by the mediator.
+
+```
+Client
+   |
+   v
+ChatRoom (Mediator)
+   |
+   +--> addUser(User)
+   |
+   +--> sendMessage(message, sender)
+           |
+           +--> Notify all users except the sender
+```
+
+        +-------------------------+
+        |     ChatMediator        |  <--- Mediator Interface
+        +-------------------------+
+        | + sendMessage(String, User): void |
+        | + addUser(User): void             |
+        +-------------------------+
+               ^
+               |
+        +-------------------------+
+        |       ChatRoom          |  <--- Concrete Mediator
+        +-------------------------+
+        | - users: List<User>     |
+        +-------------------------+
+        | + sendMessage(String, User): void |
+        | + addUser(User): void             |
+        +-------------------------+
+               ^
+               |
+        +-------------------------+
+        |        User             |  <--- Colleague (Abstract Class)
+        +-------------------------+
+        | - mediator: ChatMediator|
+        | - name: String          |
+        +-------------------------+
+        | + send(String): void    |
+        | + receive(String): void |
+        +-------------------------+
+               ^
+               |
+        +-------------------------+
+        |      ChatUser           |  <--- Concrete Colleague
+        +-------------------------+
+        | + send(String): void    |
+        | + receive(String): void |
+        +-------------------------+
+
+- **Memento**: Allows an object to save and restore its state without exposing its internal details. It is commonly used for undo/redo functionality.
+
+```
+Client
+   |
+   v
+TextEditor (Originator)
+   |
+   +--> save() -> Creates a Memento
+   |
+   +--> restore(memento) -> Restores state from a Memento
+   |
+Caretaker
+   |
+   +--> saveState(memento) -> Saves Memento to undo stack
+   |
+   +--> undo() -> Retrieves the last Memento from undo stack
+   |
+   +--> redo() -> Retrieves the last Memento from redo stack
+```
+
+        +-------------------------+
+        |        Memento          |  <--- Memento
+        +-------------------------+
+        | - state: String         |
+        +-------------------------+
+        | + getState(): String    |
+        +-------------------------+
+
+        +-------------------------+
+        |      TextEditor         |  <--- Originator
+        +-------------------------+
+        | - text: String          |
+        +-------------------------+
+        | + setText(text: String): void |
+        | + getText(): String     |
+        | + save(): Memento       |
+        | + restore(memento: Memento): void |
+        +-------------------------+
+
+        +-------------------------+
+        |       Caretaker         |  <--- Caretaker
+        +-------------------------+
+        | - undoStack: Stack<Memento> |
+        | - redoStack: Stack<Memento> |
+        +-------------------------+
+        | + saveState(memento: Memento): void |
+        | + undo(): Memento         |
+        | + redo(): Memento         |
+        +-------------------------+
+
+
 ---
 
 ## Architecture Patterns
