@@ -11,6 +11,10 @@ import com.designpattern.patterns.behavioral.interpreter.InterpreterPatternDemo;
 import com.designpattern.patterns.behavioral.iterator.IteratorPatternDemo;
 import com.designpattern.patterns.behavioral.mediator.MediatorPatternDemo;
 import com.designpattern.patterns.behavioral.memento.MementoPatternDemo;
+import com.designpattern.patterns.behavioral.observer.ObserverPatternDemo;
+import com.designpattern.patterns.behavioral.state.StatePatternDemo;
+import com.designpattern.patterns.behavioral.strategy.StrategyPatternDemo;
+import com.designpattern.patterns.behavioral.template.TemplatePatternDemo;
 import com.designpattern.patterns.creational.abstractfactory.AbstractFactoryPatternDemo;
 import com.designpattern.patterns.creational.builder.BuilderPatternDemo;
 import com.designpattern.patterns.creational.factory.FactoryPatternDemo;
@@ -138,6 +142,22 @@ public class App {
     System.out.println("||--------------------------------------------------||");
     System.out.println("Memento Pattern: Allows an object to save and restore its state.");
     MementoPatternDemo.run();
+
+    System.out.println("||--------------------------------------------------||");
+    System.out.println("Observer Pattern: Defines a one-to-many dependency between objects so that when one object changes state, all its dependents are notified.");
+    ObserverPatternDemo.run();
+
+    System.out.println("||--------------------------------------------------||");
+    System.out.println("State Pattern: Allows an object to alter its behavior when its internal state changes.");
+    StatePatternDemo.run();
+
+    System.out.println("||--------------------------------------------------||");
+    System.out.println("Strategy Pattern: Defines a family of algorithms and makes them interchangeable.");
+    StrategyPatternDemo.run();
+
+    System.out.println("||--------------------------------------------------||");
+    System.out.println("Template Pattern: Defines the skeleton of an algorithm, deferring some steps to subclasses.");
+    TemplatePatternDemo.run();
 
   }
 }
