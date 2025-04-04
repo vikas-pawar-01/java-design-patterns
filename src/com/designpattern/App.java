@@ -32,6 +32,7 @@ import com.designpattern.patterns.structural.proxy.ProxyPatternDemo;
 import com.designpattern.architecture.mvvm.MVVMPatternDemo;
 import com.designpattern.architecture.layered.LayeredArchitectureDemo;
 import com.designpattern.architecture.microservices.MicroservicesArchitectureDemo;
+import com.designpattern.architecture.mvc.MVCPatternDemo;
 
 public class App {
   public static void main(String[] args) {
@@ -179,5 +180,9 @@ public class App {
     System.out.println("||--------------------------------------------------||");
     System.out.println("Microservices Architecture: Structures an application as a collection of small, autonomous services.");
     MicroservicesArchitectureDemo.run();
+
+    System.out.println("||--------------------------------------------------||");
+    System.out.println("MVC Pattern: Separates an application into Model, View, and Controller components.");
+    MVCPatternDemo.run();
   }
 }
